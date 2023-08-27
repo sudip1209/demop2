@@ -1,0 +1,26 @@
+OpenAI response for Prompt: write a code of python of Fibonacci series 
+ *************************
+
+
+
+# Fibonacci Series
+
+# Function to print Fibonacci series
+def fib_series(n):
+    a = 0
+    b = 1
+    if n < 0:
+        print("Incorrect input")
+    elif n == 0:
+        return a
+    elif n == 1:
+        return b
+    else:
+        for i in range(2,n):
+            c = a + b
+            a = b
+            b = c
+        return b
+# Driver code 
+n = 10
+print(fib_series(n))
