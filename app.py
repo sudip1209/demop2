@@ -1,63 +1,88 @@
+# from flask import Flask, request, jsonify, render_template
+# from gtts import gTTS
+# import os
+# import speech_recognition as sr
+# import pyttsx3
+# import webbrowser
+# import openai
+# import datetime
+# import random
+# import numpy as np
+# from selenium import webdriver
+# import wikipedia
+
+# app = Flask(__name__)
+# chatStr = ""
+# # https://youtu.be/Z3ZAJoi4x6Q
+# def chat(query):
+#     global chatStr
+#     global retStr
+#     retStr="Issue Detected at OpenAI"
+#     try:
+#         #print(chatStr)
+#         openai.api_key = "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"
+#         chatStr += f"Uday: {query}\n Apna AI: "
+#         response = openai.Completion.create(
+#             model="text-davinci-003",
+#             prompt= chatStr,
+#             temperature=0.7,
+#             max_tokens=256,
+#             top_p=1,
+#             frequency_penalty=0,
+#             presence_penalty=0
+#         )
+#         print(jsonify(response))
+#         print("TEST",response["choices"][0]["text"])
+#         #todo: Wrap this inside of a  try catch block
+#         #say(response["choices"][0]["text"])
+#         chatStr += f"{response['choices'][0]['text']}\n"
+#         #retStr = response["choices"][0]["text"]
+#         #webdriver.Chrome().get("about:blank")
+#         #webdriver.Chrome().execute_script(f"window.localStorage.setItem('chat','{retStr}');")
+#         #webdriver.Chrome().quit()
+#         # with open("file.txt","a") as f:
+#         #     f.seek(0)
+#         #     f.write(retStr)
+#         #     f.close()
+#        # return retStr
+#         return response['choices'][0]['text']
+#     except:
+#         #webdriver.Chrome().get("about:blank")
+#         #retStr=webdriver.Chrome().execute_script(f"window.localStorage.setItem('chat');")
+#         #webdriver.Chrome().quit()
+#         # with open("file.txt","r") as f:
+#         #     f.seek(0)
+#         #     f.seek(-2,1)
+#         #     retStr=f.read(1)
+#         #     f.close()
+#         #os.remove('file.txt')
+#         return retStr
 from flask import Flask, request, jsonify, render_template
-from gtts import gTTS
-import os
-import speech_recognition as sr
-import pyttsx3
-import webbrowser
-import openai
-import datetime
-import random
-import numpy as np
-from selenium import webdriver
-import wikipedia
+import openai  # Import the openai package
 
 app = Flask(__name__)
 chatStr = ""
-# https://youtu.be/Z3ZAJoi4x6Q
+
 def chat(query):
     global chatStr
-    global retStr
-    retStr="Issue Detected at OpenAI"
+    retStr = "Issue Detected at OpenAI"
     try:
-        #print(chatStr)
-        openai.api_key = "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"
+        openai.api_key = "your_openai_api_key_here"
         chatStr += f"Uday: {query}\n Apna AI: "
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= chatStr,
+            prompt=chatStr,
             temperature=0.7,
             max_tokens=256,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0
         )
-        print(jsonify(response))
-        print("TEST",response["choices"][0]["text"])
-        #todo: Wrap this inside of a  try catch block
-        #say(response["choices"][0]["text"])
         chatStr += f"{response['choices'][0]['text']}\n"
-        #retStr = response["choices"][0]["text"]
-        #webdriver.Chrome().get("about:blank")
-        #webdriver.Chrome().execute_script(f"window.localStorage.setItem('chat','{retStr}');")
-        #webdriver.Chrome().quit()
-        # with open("file.txt","a") as f:
-        #     f.seek(0)
-        #     f.write(retStr)
-        #     f.close()
-       # return retStr
         return response['choices'][0]['text']
-    except:
-        #webdriver.Chrome().get("about:blank")
-        #retStr=webdriver.Chrome().execute_script(f"window.localStorage.setItem('chat');")
-        #webdriver.Chrome().quit()
-        # with open("file.txt","r") as f:
-        #     f.seek(0)
-        #     f.seek(-2,1)
-        #     retStr=f.read(1)
-        #     f.close()
-        #os.remove('file.txt')
+    except Exception as e:
+        print("OpenAI API Error:", str(e))
         return retStr
-
 
 def ai(prompt):
     openai.api_key = "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"
